@@ -1,0 +1,37 @@
+name: Generate SS Links
+
+on:
+  workflow_dispatch:  # 允许手动触发
+  schedule:
+    - cron: '0 0 * * *'  # 每天UTC时间0点运行
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run script
+      env:
+        PHP_SESSION_ID: ${{ secrets.PHP_SESSION_ID }}
+        AES_KEY: ${{ secrets.AES_KEY }}
+        AES_IV: ${{ secrets.AES_IV }}
+      run: |
+        python ss_generator.py
+
+    - name: Upload results
+      uses: actions/upload-artifact@v3
+      with:
+        name: ss-links
+        path: ss_links.txt
