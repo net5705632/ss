@@ -55,8 +55,8 @@ def main():
                 results.append(f"ss://{encoded_config}#{server['title']}")
 
             # 输出结果到文件
-            with open('ss_links.txt', 'w') as f:
-                f.write('\n'.join(results))
+            with open('ss.txt', 'w') as f:
+            f.write('\n'.join(results))
             
             print("Successfully generated SS links!")
             return 0
