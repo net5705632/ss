@@ -30,9 +30,7 @@ jobs:
         AES_KEY: ${{ secrets.AES_KEY }}
         AES_IV: ${{ secrets.AES_IV }}
       run: |
-        python ss_generator.py
-        # 重命名生成的文件
-        mv ss_links.txt ss.txt
+        python ss_generator.py  # 直接生成 ss.txt，无需重命名
 
     - name: Commit SS links
       run: |
