@@ -3,7 +3,7 @@ name: Generate SS Links
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * *'  # 每天UTC时间0点运行
+    - cron: '0 0 * * *'
 
 jobs:
   generate:
@@ -12,7 +12,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}  # 必须添加这行
+        token: ${{ secrets.GITHUB_TOKEN }}  # 关键修复点
         persist-credentials: false
 
     - name: Set up Python
@@ -31,7 +31,7 @@ jobs:
         AES_KEY: ${{ secrets.AES_KEY }}
         AES_IV: ${{ secrets.AES_IV }}
       run: |
-        python ss_generator.py  # 直接生成 ss.txt，无需重命名
+        python ss_generator.py
 
     - name: Commit SS links
       run: |
@@ -40,5 +40,5 @@ jobs:
         git remote set-url origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
         git add ss.txt
         git commit -m "Update SS links [$(date +'%Y-%m-%d %H:%M:%S')]"
-        git pull --rebase
-        git push origin main  # 如果你的分支不是main，请修改为实际分支名
+        git pull --rebase origin main
+        git push origin HEAD:main
