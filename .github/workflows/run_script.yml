@@ -3,7 +3,7 @@ name: Generate SS Links
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '0 * * * *'  # 关键修改点：每小时运行一次
 
 jobs:
   generate:
