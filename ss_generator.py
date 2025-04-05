@@ -56,7 +56,7 @@ def main():
 
             # 输出结果到文件
             with open('ss.txt', 'w') as f:
-            f.write('\n'.join(results))
+                f.write('\n'.join(results))
             
             print("Successfully generated SS links!")
             return 0
